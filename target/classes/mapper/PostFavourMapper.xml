@@ -4,7 +4,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhc.springboot.mapper.PostFavourMapper">
+<mapper namespace="com.zhc.aeoj.mapper.PostFavourMapper">
 
     <resultMap id="BaseResultMap" type="com.zhc.aeoj.model.entity.PostFavour">
         <id property="id" column="id" jdbcType="BIGINT"/>
@@ -15,7 +15,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,postId,userId,
+        id
+        ,postId,userId,
         createTime,updateTime
     </sql>
 

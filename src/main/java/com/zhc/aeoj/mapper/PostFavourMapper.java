@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Param;
  * 帖子收藏数据库操作
  */
 public interface PostFavourMapper extends BaseMapper<PostFavour> {
-
     /**
      * 分页查询收藏帖子列表
      *

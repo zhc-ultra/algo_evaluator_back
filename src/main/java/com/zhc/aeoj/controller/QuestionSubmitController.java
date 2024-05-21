@@ -1,11 +1,17 @@
 package com.zhc.aeoj.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhc.aeoj.annotation.AuthCheck;
 import com.zhc.aeoj.common.BaseResponse;
 import com.zhc.aeoj.common.ErrorCode;
 import com.zhc.aeoj.common.ResultUtils;
+import com.zhc.aeoj.constant.UserConstant;
 import com.zhc.aeoj.exception.BusinessException;
 import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitAddRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitQuertRequest;
+import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.zhc.aeoj.model.entity.User;
+import com.zhc.aeoj.model.vo.QuestionSubmitVO;
 import com.zhc.aeoj.service.QuestionSubmitService;
 import com.zhc.aeoj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -49,4 +55,20 @@ public class QuestionSubmitController {
         return ResultUtils.success(questionSubmitId);
     }
 
+    /**
+     * 分页获取题目提交（仅管理员和用户自己能获取）
+     *
+     * @param questionSubnmitQuertRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionByPage(@RequestBody QuestionSubnmitQuertRequest questionSubnmitQuertRequest,
+                                                                   HttpServletRequest request) {
+        long current = questionSubnmitQuertRequest.getCurrent();
+        long size = questionSubnmitQuertRequest.getPageSize();
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubnmitQuertRequest));
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, userService.getLoginUser(request)));
+    }
 }

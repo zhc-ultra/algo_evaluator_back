@@ -4,7 +4,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhc.springboot.mapper.PostThumbMapper">
+<mapper namespace="com.zhc.aeoj.mapper.PostThumbMapper">
 
     <resultMap id="BaseResultMap" type="com.zhc.aeoj.model.entity.PostThumb">
             <id property="id" column="id" jdbcType="BIGINT"/>
