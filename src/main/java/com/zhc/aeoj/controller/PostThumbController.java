@@ -34,9 +34,6 @@ public class PostThumbController {
 
     /**
      * 点赞 / 取消点赞
-     *
-     * @param postThumbAddRequest
-     * @param request
      * @return resultNum 本次点赞变化数
      */
     @PostMapping("/")

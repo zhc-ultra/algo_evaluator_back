@@ -25,8 +25,6 @@ public enum QuestionSubmitStateEnum {
 
     /**
      * 获取值列表
-     *
-     * @return
      */
     public static List<Integer> getValues() {
         return Arrays.stream(values()).map(item -> item.value).collect(Collectors.toList());
@@ -34,9 +32,6 @@ public enum QuestionSubmitStateEnum {
 
     /**
      * 根据 value 获取枚举
-     *
-     * @param value
-     * @return
      */
     public static QuestionSubmitStateEnum getEnumByValue(Integer value) {
         if (ObjectUtils.isEmpty(value)) {

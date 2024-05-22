@@ -78,9 +78,6 @@ public class PostVO implements Serializable {
 
     /**
      * 包装类转对象
-     *
-     * @param postVO
-     * @return
      */
     public static Post voToObj(PostVO postVO) {
         if (postVO == null) {
@@ -95,9 +92,6 @@ public class PostVO implements Serializable {
 
     /**
      * 对象转包装类
-     *
-     * @param post
-     * @return
      */
     public static PostVO objToVo(Post post) {
         if (post == null) {

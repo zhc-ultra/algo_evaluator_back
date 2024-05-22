@@ -82,9 +82,6 @@ public class PostEsDTO implements Serializable {
 
     /**
      * 对象转包装类
-     *
-     * @param post
-     * @return
      */
     public static PostEsDTO objToDto(Post post) {
         if (post == null) {
@@ -101,9 +98,6 @@ public class PostEsDTO implements Serializable {
 
     /**
      * 包装类转对象
-     *
-     * @param postEsDTO
-     * @return
      */
     public static Post dtoToObj(PostEsDTO postEsDTO) {
         if (postEsDTO == null) {

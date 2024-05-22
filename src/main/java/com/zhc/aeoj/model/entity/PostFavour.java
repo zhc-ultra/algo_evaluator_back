@@ -15,7 +15,8 @@ import lombok.Data;
  **/
 @TableName(value = "post_favour")
 @Data
-public class PostFavour implements Serializable {
+public class
+PostFavour implements Serializable {
 
     /**
      * id

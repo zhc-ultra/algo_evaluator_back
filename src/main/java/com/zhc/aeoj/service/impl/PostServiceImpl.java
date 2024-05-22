@@ -90,9 +90,6 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 
     /**
      * 获取查询包装类
-     *
-     * @param postQueryRequest
-     * @return
      */
     @Override
     public QueryWrapper<Post> getQueryWrapper(PostQueryRequest postQueryRequest) {

@@ -85,9 +85,6 @@ public class QuestionVO implements Serializable {
 
     /**
      * 包装类转对象
-     *
-     * @param questionVO
-     * @return
      */
     public static Question voToObj(QuestionVO questionVO) {
         if (questionVO == null) {
@@ -110,9 +107,6 @@ public class QuestionVO implements Serializable {
 
     /**
      * 对象转包装类
-     *
-     * @param question
-     * @return
      */
     public static QuestionVO objToVo(Question question) {
         if (question == null) {

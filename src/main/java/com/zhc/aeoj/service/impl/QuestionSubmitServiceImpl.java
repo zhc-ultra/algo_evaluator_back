@@ -25,10 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -48,9 +45,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     /**
      * 题目提交
-     *
-     * @param questionSubnmitAddRequest
-     * @param loginUser
      * @return 提交记录的id
      */
     @Override
@@ -91,9 +85,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     /**
      * 获取查询包装类，根据前端请求对象，得到mybatis支持的查询对象
-     *
-     * @param questionSubmitQueryRequest
-     * @return
      */
     @Override
     public QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubnmitQuertRequest questionSubmitQueryRequest) {

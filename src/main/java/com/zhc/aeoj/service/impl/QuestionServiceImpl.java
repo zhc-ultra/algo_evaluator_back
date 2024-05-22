@@ -83,9 +83,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
 
     /**
      * 获取查询包装类，根据前端请求对象，得到mybatis支持的查询对象
-     *
-     * @param questionQueryRequest
-     * @return
      */
     @Override
     public QueryWrapper<Question> getQueryWrapper(QuestionQueryRequest questionQueryRequest) {

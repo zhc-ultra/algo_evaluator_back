@@ -29,10 +29,6 @@ public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb
 
     /**
      * 点赞
-     *
-     * @param postId
-     * @param loginUser
-     * @return
      */
     @Override
     public int doPostThumb(long postId, User loginUser) {

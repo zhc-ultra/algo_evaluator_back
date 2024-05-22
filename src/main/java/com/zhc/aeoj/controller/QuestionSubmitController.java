@@ -1,11 +1,9 @@
 package com.zhc.aeoj.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zhc.aeoj.annotation.AuthCheck;
 import com.zhc.aeoj.common.BaseResponse;
 import com.zhc.aeoj.common.ErrorCode;
 import com.zhc.aeoj.common.ResultUtils;
-import com.zhc.aeoj.constant.UserConstant;
 import com.zhc.aeoj.exception.BusinessException;
 import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitAddRequest;
 import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitQuertRequest;
@@ -39,9 +37,6 @@ public class QuestionSubmitController {
 
     /**
      * 提交题目
-     *
-     * @param questionSubmitAddRequest
-     * @param request
      * @return 题目提交的id
      */
     @PostMapping("/")
@@ -57,10 +52,6 @@ public class QuestionSubmitController {
 
     /**
      * 分页获取题目提交（仅管理员和用户自己能获取）
-     *
-     * @param questionSubnmitQuertRequest
-     * @param request
-     * @return
      */
     @PostMapping("/list/page")
     public BaseResponse<Page<QuestionSubmitVO>> listQuestionByPage(@RequestBody QuestionSubnmitQuertRequest questionSubnmitQuertRequest,

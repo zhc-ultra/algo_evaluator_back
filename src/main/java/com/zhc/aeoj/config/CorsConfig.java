@@ -8,23 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 全局跨域配置
  */
 
-// 处理跨域
-//@Configuration
-//public class CorsConfig {
-//
-//    @Bean
-//    public CorsWebFilter corsFilter() {
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.addAllowedMethod("*");
-//        config.setAllowCredentials(true);
-//        // todo 实际改为线上真实域名、本地域名
-//        config.setAllowedOriginPatterns(Arrays.asList("*"));
-//        config.addAllowedHeader("*");
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsWebFilter(source);
-//    }
-//}
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
