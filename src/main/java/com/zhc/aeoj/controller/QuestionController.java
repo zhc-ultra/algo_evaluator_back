@@ -2,6 +2,7 @@ package com.zhc.aeoj.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.gson.Gson;
 import com.zhc.aeoj.annotation.AuthCheck;
 import com.zhc.aeoj.common.BaseResponse;
 import com.zhc.aeoj.common.DeleteRequest;
@@ -11,10 +12,15 @@ import com.zhc.aeoj.constant.UserConstant;
 import com.zhc.aeoj.exception.BusinessException;
 import com.zhc.aeoj.exception.ThrowUtils;
 import com.zhc.aeoj.model.dto.question.*;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.zhc.aeoj.model.entity.Question;
+import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.zhc.aeoj.model.entity.User;
+import com.zhc.aeoj.model.vo.QuestionSubmitVO;
 import com.zhc.aeoj.model.vo.QuestionVO;
 import com.zhc.aeoj.service.QuestionService;
+import com.zhc.aeoj.service.QuestionSubmitService;
 import com.zhc.aeoj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +32,9 @@ import java.util.List;
 
 /**
  * 题目接口
+ *
+ * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
+ * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/question")
@@ -38,10 +47,19 @@ public class QuestionController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private QuestionSubmitService questionSubmitService;
+
+    private final static Gson GSON = new Gson();
+
     // region 增删改查
 
     /**
      * 创建
+     *
+     * @param questionAddRequest
+     * @param request
+     * @return
      */
     @PostMapping("/add")
     public BaseResponse<Long> addQuestion(@RequestBody QuestionAddRequest questionAddRequest, HttpServletRequest request) {
@@ -52,15 +70,15 @@ public class QuestionController {
         BeanUtils.copyProperties(questionAddRequest, question);
         List<String> tags = questionAddRequest.getTags();
         if (tags != null) {
-            question.setTags(JSONUtil.toJsonStr(tags));
+            question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
         if (judgeCase != null) {
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+            question.setJudgeCase(GSON.toJson(judgeCase));
         }
         JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
         if (judgeConfig != null) {
-            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         questionService.validQuestion(question, true);
         User loginUser = userService.getLoginUser(request);
@@ -75,6 +93,10 @@ public class QuestionController {
 
     /**
      * 删除
+     *
+     * @param deleteRequest
+     * @param request
+     * @return
      */
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteQuestion(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
@@ -94,6 +116,12 @@ public class QuestionController {
         return ResultUtils.success(b);
     }
 
+    /**
+     * 更新（仅管理员）
+     *
+     * @param questionUpdateRequest
+     * @return
+     */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updateQuestion(@RequestBody QuestionUpdateRequest questionUpdateRequest) {
@@ -104,15 +132,15 @@ public class QuestionController {
         BeanUtils.copyProperties(questionUpdateRequest, question);
         List<String> tags = questionUpdateRequest.getTags();
         if (tags != null) {
-            question.setTags(JSONUtil.toJsonStr(tags));
+            question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionUpdateRequest.getJudgeCase();
         if (judgeCase != null) {
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+            question.setJudgeCase(GSON.toJson(judgeCase));
         }
         JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
         if (judgeConfig != null) {
-            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         // 参数校验
         questionService.validQuestion(question, false);
@@ -126,6 +154,9 @@ public class QuestionController {
 
     /**
      * 根据 id 获取
+     *
+     * @param id
+     * @return
      */
     @GetMapping("/get")
     public BaseResponse<Question> getQuestionById(long id, HttpServletRequest request) {
@@ -146,6 +177,9 @@ public class QuestionController {
 
     /**
      * 根据 id 获取（脱敏）
+     *
+     * @param id
+     * @return
      */
     @GetMapping("/get/vo")
     public BaseResponse<QuestionVO> getQuestionVOById(long id, HttpServletRequest request) {
@@ -161,6 +195,10 @@ public class QuestionController {
 
     /**
      * 分页获取列表（封装类）
+     *
+     * @param questionQueryRequest
+     * @param request
+     * @return
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
@@ -176,6 +214,10 @@ public class QuestionController {
 
     /**
      * 分页获取当前用户创建的资源列表
+     *
+     * @param questionQueryRequest
+     * @param request
+     * @return
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
@@ -196,6 +238,10 @@ public class QuestionController {
 
     /**
      * 分页获取题目列表（仅管理员）
+     *
+     * @param questionQueryRequest
+     * @param request
+     * @return
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -212,6 +258,10 @@ public class QuestionController {
 
     /**
      * 编辑（用户）
+     *
+     * @param questionEditRequest
+     * @param request
+     * @return
      */
     @PostMapping("/edit")
     public BaseResponse<Boolean> editQuestion(@RequestBody QuestionEditRequest questionEditRequest, HttpServletRequest request) {
@@ -222,15 +272,15 @@ public class QuestionController {
         BeanUtils.copyProperties(questionEditRequest, question);
         List<String> tags = questionEditRequest.getTags();
         if (tags != null) {
-            question.setTags(JSONUtil.toJsonStr(tags));
+            question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionEditRequest.getJudgeCase();
         if (judgeCase != null) {
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+            question.setJudgeCase(GSON.toJson(judgeCase));
         }
         JudgeConfig judgeConfig = questionEditRequest.getJudgeConfig();
         if (judgeConfig != null) {
-            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         // 参数校验
         questionService.validQuestion(question, false);
@@ -246,4 +296,45 @@ public class QuestionController {
         boolean result = questionService.updateById(question);
         return ResultUtils.success(result);
     }
+
+    /**
+     * 提交题目
+     *
+     * @param questionSubmitAddRequest
+     * @param request
+     * @return 提交记录的 id
+     */
+    @PostMapping("/question_submit/do")
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                               HttpServletRequest request) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 登录才能点赞
+        final User loginUser = userService.getLoginUser(request);
+        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(questionSubmitId);
+    }
+
+    /**
+     * 分页获取题目提交列表（除了管理员外，普通用户只能看到非答案、提交代码等公开信息）
+     *
+     * @param questionSubmitQueryRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/question_submit/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+                                                                         HttpServletRequest request) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        // 从数据库中查询原始的题目提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        final User loginUser = userService.getLoginUser(request);
+        // 返回脱敏信息
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
+    }
+
 }
+

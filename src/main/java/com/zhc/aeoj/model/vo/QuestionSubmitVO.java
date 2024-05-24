@@ -1,18 +1,13 @@
 package com.zhc.aeoj.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.zhc.aeoj.model.dto.question.JudgeConfig;
-import com.zhc.aeoj.model.dto.questionsubmit.JudgeInfo;
-import com.zhc.aeoj.model.entity.Question;
+import com.zhc.aeoj.judge.codesandbox.model.JudgeInfo;
 import com.zhc.aeoj.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 题目提交封装类，进行信息脱敏

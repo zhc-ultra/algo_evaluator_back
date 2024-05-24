@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhc.aeoj.common.ErrorCode;
 import com.zhc.aeoj.constant.CommonConstant;
 import com.zhc.aeoj.exception.BusinessException;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitAddRequest;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitQuertRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.zhc.aeoj.model.entity.Question;
 import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.zhc.aeoj.model.entity.User;
@@ -48,7 +48,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return 提交记录的id
      */
     @Override
-    public long doQuestionSubmit(QuestionSubnmitAddRequest questionSubnmitAddRequest, User loginUser) {
+    public long doQuestionSubmit(QuestionSubmitAddRequest questionSubnmitAddRequest, User loginUser) {
         long questionId = questionSubnmitAddRequest.getQuestionId();
 
         String language = questionSubnmitAddRequest.getLanguage();
@@ -78,6 +78,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!result) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据插入异常");
         }
+        // TODO 执行判题服务
 
         return questionSubmit.getId();
     }
@@ -87,7 +88,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * 获取查询包装类，根据前端请求对象，得到mybatis支持的查询对象
      */
     @Override
-    public QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubnmitQuertRequest questionSubmitQueryRequest) {
+    public QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubmitQueryRequest questionSubmitQueryRequest) {
         QueryWrapper<QuestionSubmit> queryWrapper = new QueryWrapper<>();
         if (questionSubmitQueryRequest == null) {
             return queryWrapper;

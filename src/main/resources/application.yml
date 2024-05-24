@@ -82,3 +82,6 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.zhc.aeoj.controller
+# 代码沙箱类型
+codesandbox:
+  type: example

@@ -2,14 +2,12 @@ package com.zhc.aeoj.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitAddRequest;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitQuertRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhc.aeoj.model.entity.User;
 import com.zhc.aeoj.model.vo.QuestionSubmitVO;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author yinger
@@ -20,12 +18,12 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
     /**
      * 题目提交
      */
-    long doQuestionSubmit(QuestionSubnmitAddRequest questionSubmitAddRequest, User loginUser);
+    long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser);
 
     /**
      * 获取查询条件
      */
-    QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubnmitQuertRequest questionSubnmitQuertRequest);
+    QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubmitQueryRequest questionSubnmitQuertRequest);
 
 
     /**

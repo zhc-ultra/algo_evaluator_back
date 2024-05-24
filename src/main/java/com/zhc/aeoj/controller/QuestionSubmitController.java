@@ -5,8 +5,8 @@ import com.zhc.aeoj.common.BaseResponse;
 import com.zhc.aeoj.common.ErrorCode;
 import com.zhc.aeoj.common.ResultUtils;
 import com.zhc.aeoj.exception.BusinessException;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitAddRequest;
-import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubnmitQuertRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.zhc.aeoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.zhc.aeoj.model.entity.User;
 import com.zhc.aeoj.model.vo.QuestionSubmitVO;
@@ -40,7 +40,7 @@ public class QuestionSubmitController {
      * @return 题目提交的id
      */
     @PostMapping("/")
-    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubnmitAddRequest questionSubmitAddRequest,
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
                                                HttpServletRequest request) {
         if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -54,7 +54,7 @@ public class QuestionSubmitController {
      * 分页获取题目提交（仅管理员和用户自己能获取）
      */
     @PostMapping("/list/page")
-    public BaseResponse<Page<QuestionSubmitVO>> listQuestionByPage(@RequestBody QuestionSubnmitQuertRequest questionSubnmitQuertRequest,
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionByPage(@RequestBody QuestionSubmitQueryRequest questionSubnmitQuertRequest,
                                                                    HttpServletRequest request) {
         long current = questionSubnmitQuertRequest.getCurrent();
         long size = questionSubnmitQuertRequest.getPageSize();

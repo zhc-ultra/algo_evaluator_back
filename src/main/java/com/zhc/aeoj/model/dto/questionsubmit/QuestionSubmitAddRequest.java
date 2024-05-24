@@ -3,14 +3,12 @@ package com.zhc.aeoj.model.dto.questionsubmit;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 创建请求
  */
 @Data
-public class QuestionSubnmitAddRequest implements Serializable {
+public class QuestionSubmitAddRequest implements Serializable {
 
     /**
      * 编程语言

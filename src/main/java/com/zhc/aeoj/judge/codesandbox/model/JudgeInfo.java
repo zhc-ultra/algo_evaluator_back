@@ -1,4 +1,4 @@
-package com.zhc.aeoj.model.dto.questionsubmit;
+package com.zhc.aeoj.judge.codesandbox.model;
 
 import lombok.Data;
 
