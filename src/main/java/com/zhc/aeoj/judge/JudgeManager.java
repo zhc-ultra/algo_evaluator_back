@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JudgeManager {
-
-
     /**
      * 执行判题
      *

@@ -80,6 +80,7 @@ public class FileController {
 
     /**
      * 校验文件
+     *
      * @param fileUploadBizEnum 业务类型
      */
     private void validFile(MultipartFile multipartFile, FileUploadBizEnum fileUploadBizEnum) {

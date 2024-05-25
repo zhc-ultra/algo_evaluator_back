@@ -16,6 +16,7 @@ import com.zhc.aeoj.model.entity.QuestionSubmit;
 import com.zhc.aeoj.model.enums.QuestionSubmitStateEnum;
 import com.zhc.aeoj.service.QuestionService;
 import com.zhc.aeoj.service.QuestionSubmitService;
+import com.zhc.aeoj.service.impl.QuestionSubmitServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +93,7 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setJudgeCaseList(judgeCaseList);
         judgeContext.setQuestion(question);
         judgeContext.setQuestionSubmit(questionSubmit);
+
         JudgeInfo judgeInfo = judgeManager.doJudge(judgeContext);
         // 6）修改数据库中的判题结果
         questionSubmitUpdate = new QuestionSubmit();
@@ -106,4 +108,3 @@ public class JudgeServiceImpl implements JudgeService {
         return questionSubmitResult;
     }
 }
-
