@@ -6,7 +6,6 @@ import com.zhc.aeoj.common.ErrorCode;
 import com.zhc.aeoj.common.ResultUtils;
 import com.zhc.aeoj.constant.FileConstant;
 import com.zhc.aeoj.exception.BusinessException;
-import com.zhc.aeoj.manager.CosManager;
 import com.zhc.aeoj.model.dto.file.UploadFileRequest;
 import com.zhc.aeoj.model.entity.User;
 import com.zhc.aeoj.model.enums.FileUploadBizEnum;
@@ -36,9 +35,6 @@ public class FileController {
     @Resource
     private UserService userService;
 
-    @Resource
-    private CosManager cosManager;
-
     /**
      * 文件上传
      */
@@ -61,7 +57,6 @@ public class FileController {
             // 上传文件
             file = File.createTempFile(filepath, null);
             multipartFile.transferTo(file);
-            cosManager.putObject(filepath, file);
             // 返回可访问地址
             return ResultUtils.success(FileConstant.COS_HOST + filepath);
         } catch (Exception e) {

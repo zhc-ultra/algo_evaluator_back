@@ -6,7 +6,9 @@ import com.zhc.aeoj.model.dto.question.JudgeConfig;
 import com.zhc.aeoj.judge.codesandbox.model.JudgeInfo;
 import com.zhc.aeoj.model.entity.Question;
 import com.zhc.aeoj.model.enums.JudgeInfoMessageEnum;
+import com.zhc.aeoj.service.QuestionService;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +16,12 @@ import java.util.Optional;
  * Java 程序的判题策略
  */
 public class JavaLanguageJudgeStrategy implements JudgeStrategy {
+    @Resource
+    QuestionService questionService;
 
     /**
      * 执行判题
+     *
      * @param judgeContext
      * @return
      */
@@ -40,13 +45,20 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
             return judgeInfoResponse;
         }
         // 依次判断每一项输出和预期输出是否相等
+
         for (int i = 0; i < judgeCaseList.size(); i++) {
+            // 如果最后一个 '\n' 匹配不上，也算ac
+            String output = outputList.get(i);
+            if (output.endsWith("\n")) {
+                output = output.substring(0, output.length() - 1);
+            }
             JudgeCase judgeCase = judgeCaseList.get(i);
-            if (!judgeCase.getOutput().equals(outputList.get(i))) {
+            if (!judgeCase.getOutput().equals(output)) {
                 judgeInfoMessageEnum = JudgeInfoMessageEnum.WRONG_ANSWER;
                 judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
                 return judgeInfoResponse;
             }
+
         }
         // 判断题目限制
         String judgeConfigStr = question.getJudgeConfig();
@@ -58,6 +70,7 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
             judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
             return judgeInfoResponse;
         }
+
         // Java 程序本身需要额外执行 10 秒钟
         long JAVA_PROGRAM_TIME_COST = 10000L;
         if ((time - JAVA_PROGRAM_TIME_COST) > needTimeLimit) {
@@ -65,6 +78,7 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
             judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
             return judgeInfoResponse;
         }
+
         judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
         return judgeInfoResponse;
     }

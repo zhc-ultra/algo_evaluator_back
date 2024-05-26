@@ -13,6 +13,7 @@ import com.zhc.aeoj.model.dto.question.JudgeCase;
 import com.zhc.aeoj.judge.codesandbox.model.JudgeInfo;
 import com.zhc.aeoj.model.entity.Question;
 import com.zhc.aeoj.model.entity.QuestionSubmit;
+import com.zhc.aeoj.model.enums.JudgeInfoMessageEnum;
 import com.zhc.aeoj.model.enums.QuestionSubmitStateEnum;
 import com.zhc.aeoj.service.QuestionService;
 import com.zhc.aeoj.service.QuestionSubmitService;
@@ -95,6 +96,15 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setQuestionSubmit(questionSubmit);
 
         JudgeInfo judgeInfo = judgeManager.doJudge(judgeContext);
+        if(judgeInfo.getMessage().equals(JudgeInfoMessageEnum.ACCEPTED.getValue())) {
+            // 题目的通过数 + 1
+            questionService.update()
+                    .eq("id", question.getId())
+                    .eq("userId", question.getUserId())
+                    .setSql("acceptedNum = acceptedNum + 1")
+                    .update();
+        }
+
         // 6）修改数据库中的判题结果
         questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);

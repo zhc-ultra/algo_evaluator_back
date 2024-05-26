@@ -23,10 +23,8 @@ public class RemoteCodeSandBox implements CodeSandBox {
     // 使用字符创进行MD5 加密后再进行传输
     // BASE64 后 MD5
     private static final String AUTH_REQUEST_SECRET = "fda80ec5306e44a3489562f105d74527";
-
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
-        System.out.println("远程代码沙箱");
         String url = "http://127.0.0.1:3579/executeCode";
         String jsonRequest = JSONUtil.toJsonStr(executeCodeRequest);
         String response = HttpUtil.createPost(url)
