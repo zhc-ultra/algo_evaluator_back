@@ -14,10 +14,8 @@ public enum QuestionSubmitStateEnum {
     RUNNING("判题中", 1),
     SUCCEED("成功", 2),
     FAILED("失败", 3);
-
     private final String text;
     private final Integer value;
-
     QuestionSubmitStateEnum(String text, Integer value) {
         this.text = text;
         this.value = value;

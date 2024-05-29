@@ -10,10 +10,9 @@ import java.util.stream.Collectors;
  * 判题信息枚举
  */
 public enum JudgeInfoMessageEnum {
-
     ACCEPTED("成功", "Accepted"),
     WRONG_ANSWER("答案错误", "Wrong Answer"),
-    COMPILE_ERROR("编译错误", "CompileError"),
+    COMPILE_ERROR("编译错误", "Compile Error"),
     MEMORY_LIMIT_EXCEEDED("内存超限", "Memory Limit Exceeded"),
     TIME_LIMIT_EXCEEDED("时间超限", "Time Limit Exceeded"),
     PRESS_LIMIT_EXCEEDED("展示错误", "PressLimitExceeded"),

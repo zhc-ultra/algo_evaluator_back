@@ -14,9 +14,19 @@ public class ExecuteCodeResponse {
     // 输出列表
     private List<String> outputList;
     // 接口信息信息
-    private String message;
+    private String error;
     // 执行状态
     private Integer status;
     // 判题信息
     private JudgeInfo judgeInfo;
+
+    public ExecuteCodeResponse(List<String> outputList, String error, Integer status, JudgeInfo judgeInfo) {
+        this.outputList = outputList;
+        this.error = error;
+        this.status = status;
+        this.judgeInfo = judgeInfo;
+    }
+
+    public ExecuteCodeResponse() {
+    }
 }
